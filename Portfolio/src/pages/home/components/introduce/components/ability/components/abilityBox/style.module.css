@@ -1,0 +1,47 @@
+.abilityContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.abilityList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.abilityBox {
+  position: relative;
+  transition: box-shadow 0.3s ease;
+}
+
+.abilityBox:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.confButtons {
+  text-align: center;
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  gap: 5px;
+  transition: 0.1s;
+}
+
+.abilityBox:hover .confButtons {
+  display: flex;
+}
+
+.actionButtonContainer {
+  width: 50%;
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+}

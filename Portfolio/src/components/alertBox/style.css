@@ -1,0 +1,26 @@
+.alertBox {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    max-width: 300px;
+    right: 15px;
+    top: 50px;
+    z-index: 200;
+}
+
+.symbol {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.content {
+    flex: 1;
+}

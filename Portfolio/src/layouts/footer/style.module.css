@@ -1,0 +1,8 @@
+/* style.module.css */
+.footer {
+  background-color: #333;
+  color: #fff;
+  position: static; 
+  bottom: 0;
+  width: 100%;
+}

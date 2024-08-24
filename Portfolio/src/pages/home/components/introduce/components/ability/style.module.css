@@ -1,0 +1,18 @@
+.abilities{
+    gap: 10%;
+}
+.moreButton{
+    background-color: rgb(203, 208, 214);
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    font-weight: 500;
+    font-size: large;
+    margin: 0 35%;
+    text-align: center;
+}
+.moreButton:hover{
+    background-color: rgb(82, 80, 80);
+    color: rgb(203, 208, 214);
+}

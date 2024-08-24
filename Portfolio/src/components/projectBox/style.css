@@ -1,0 +1,60 @@
+
+.main:hover .custom-underline{
+  width: 80% ;
+  margin: 0 10%;
+}
+
+.custom-underline {
+  position: relative;
+  background-color: #ff9800;
+  height: 2px;
+  width: 20%;
+  margin: 0 40%;
+  z-index: 500;
+  transition: 0.5s;
+}
+
+.main {
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.main:hover {
+  transform: scale(1.05);
+}
+
+.img {
+  width: 100%;
+  overflow: hidden;
+}
+
+.project-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.content {
+  padding: 16px;
+  text-align: center;
+}
+
+.project-kind {
+  color: #ff9800;
+  margin-bottom: 8px;
+}
+
+.project-title {
+  font-size: 1.7em;
+  margin-bottom: 8px;
+}
+
+.project-hash {
+  font-size: 0.9em;
+  color: #757575;
+}
+

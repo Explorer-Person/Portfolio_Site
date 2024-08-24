@@ -1,0 +1,129 @@
+# Digital Portfolio Site
+
+## 1. Introduction
+
+**Purpose:**  
+This is the UI of a Digital Portfolio Site, which helps in visualizing and presenting projects.
+
+**Overview:**  
+This UI helps the user by abstracting the code, allowing changes through UI interactions (e.g., clicking buttons).
+
+## 2. Installation
+
+**Prerequisites:**  
+- **Node.js:** v18.17.1
+- **NPM:** 9.6.7
+
+**Installation Steps:**  
+1. **Clone the Repository:**  
+   ```bash
+   git clone https://github.com/your-username/your-repo.git
+
+2. **Navigate to the Project Directory:** cd your-repo
+3. **Install Dependencies:** npm install
+4. **Run the Development Server:** npm run dev
+5. **Build the Project:** npm run build
+6. **Preview the Build:** npm run preview
+
+
+3. Project Structure
+Directory Layout: 
+
+portfolio/
+├── .vscode/
+│   └── settings.json            # VSCode specific settings
+├── doc/
+│   └── ...                      # Documentation files
+├── node_modules/                # npm dependencies
+├── public/
+│   ├── index.html               # Main HTML file
+│   └── ...                      # Other static assets
+├── src/
+│   ├── assets/                  # Static assets (images, fonts, etc.)
+│   ├── components/              # Reusable React components
+│   │   ├── addButton/           # Add button component
+│   │   ├── confBox/             # Confirmation box component
+│   │   ├── confButtons/         # Confirmation buttons component
+│   │   ├── detailBox/           # Detail box component
+│   │   ├── projectBox/          # Project box component
+│   │   ├── skillBox/            # Skill box component
+│   │   └── index.ts             # Components index file
+│   ├── hooks/                   # Custom React hooks
+│   ├── layouts/                 # Layout components (header, footer, etc.)
+│   ├── pages/                   # Page components
+│   ├── store/                   # Redux store configuration and slices
+│   ├── utils/                   # Utility functions and helpers
+│   ├── App.tsx                  # Main App component
+│   ├── main.tsx                 # Entry point of the application
+│   └── vite-env.d.ts            # Vite environment variables declaration
+├── .eslintrc.cjs                # ESLint configuration
+├── .gitignore                   # Git ignore file
+├── index.html                   # Main HTML file
+├── package-lock.json            # Exact versions of installed npm dependencies
+├── package.json                 # Project metadata and dependencies
+├── README.md                    # Project documentation
+├── tsconfig.json                # TypeScript configuration
+├── tsconfig.node.json           # TypeScript configuration for Node
+└── vite.config.ts               # Vite configuration
+
+
+
+4. Development
+ **Running the Project:** npm run dev (in terminal) (Open http://localhost:3000 to view it in the browser).
+ **Building the Project:** npm run build (in terminal) (Builds the app for production to the build folder).
+
+5. Components
+ **Component Overview:** List and describe each component used in the project.
+ **Code Examples:** Provide code examples for each component.
+
+6. Styling
+
+ **CSS/Sass:** 
+
+ *Local Component Styles:*
+
+-Each component has a corresponding CSS file in its directory.
+-CSS files are imported directly into the component using import './style.css'.
+-This method ensures that styles are scoped to the component, reducing the risk of style conflicts.
+
+ *External CSS Modules:*
+
+-External CSS files are also imported using import style from './style.css'.
+-Styles from external CSS files are used by referencing them through the style object.
+-This approach is particularly useful when you need to apply styles conditionally or dynamically.
+
+ **Theming:** 
+
+ *Custom Styles:*
+
+-The project supports custom theming to allow for consistent design and easy maintenance.
+-Global styles and theme-specific variables (such as colors, fonts, and spacing) can be defined in a central CSS file and imported where needed.
+ 
+ *Global Styles:*
+
+-Global styles are placed in a common directory, typically at the root or within a styles or assets directory.
+-These global styles include common resets, typography, and utility classes.
+
+ **Bootstrap and React-Bootstrap:**
+
+ *Bootstrap:*
+
+-Bootstrap is included in the project for styling and layout purposes.
+-Bootstrap styles are imported into the project to be used globally.
+
+ *React-Bootstrap:*
+
+-React-Bootstrap components are used for building responsive and reusable UI components.
+-Components are imported from react-bootstrap and used within your React components.
+
+===LATER===
+7. API Integration
+Endpoints: Describe the APIs integrated into the project.
+Data Flow: Explain how data flows between the frontend and backend.
+
+8. Testing
+Unit Tests: Instructions on how to run unit tests.
+Integration Tests: Instructions on how to run integration tests.
+
+9. Deployment
+Deployment Steps: Detailed steps to deploy the project to different environments.
