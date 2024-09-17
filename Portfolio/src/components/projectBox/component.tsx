@@ -19,26 +19,31 @@ const ProjectBox = ({ projectBoxInfo }: ProjectBoxProps) => {
       status: true
     }));
   };
+
   const status = useAppSelector((state: RootState) => state.auth.response.status)
 
   const handleMediaChange = HandleMediaHook();
 
   return (
-    <div className="main" onClick={handleClick}>
-      <div className="img">
-        <FileDisplay key={projectBoxInfo.id} handleMediaChange={handleMediaChange} mediaInfo={projectBoxInfo} />
+    <div>
+      <div className="main" onClick={handleClick}>
+        <div className="img">
+          <FileDisplay key={projectBoxInfo.id} handleMediaChange={handleMediaChange} mediaInfo={projectBoxInfo} />
 
-        {/* <img className="project-image" src={projectBoxInfo.info.imgUrl} alt={projectBoxInfo.info.title} /> */}
+          {/* <img className="project-image" src={projectBoxInfo.info.imgUrl} alt={projectBoxInfo.info.title} /> */}
+        </div>
+        <div className="content">
+          <h2 className="project-title">{projectBoxInfo.info.title}</h2>
+          <p className="project-hash">Kind: {projectBoxInfo.info.kinds}</p>
+          <div className="custom-underline" />
+        </div>
+
       </div>
-      <div className="content">
-        <h2 className="project-title">{projectBoxInfo.info.title}</h2>
-        <p className="project-hash">Kind: {projectBoxInfo.info.kinds}</p>
-        <div className="custom-underline" />
-      </div>
-      <div style={{ position: 'relative' }}>
-        {status === true ? <ConfButtons id={projectBoxInfo.id} inheritor='skills' /> : null}
+      <div>
+        {status === true ? <ConfButtons id={projectBoxInfo.id} inheritor='projects' /> : null}
       </div>
     </div>
+
   );
 };
 

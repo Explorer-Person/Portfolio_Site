@@ -1,6 +1,6 @@
-const {sendResponse} = require('@handlers');
-const {adminQuery} = require('@queries');
-const {htmlSanitizer} = require('@utils');
+const { sendResponse } = require('@handlers');
+const { adminQuery } = require('@queries');
+const { htmlSanitizer } = require('@utils');
 const { dataFormatter } = require('@utils');
 
 
@@ -35,45 +35,50 @@ exports.loginAdmin = async (req, res) => {
         const adminInfo = await htmlSanitizer(req.body)
         const admin = new adminQuery();
         const response = await admin.auth(adminInfo);
-        const formattedData = await dataFormatter(response.data)[0];
+        console.log(response, 'soemthing')
 
-        if(response.status === true){
-        req.session.isAuth = true;
-        req.session.adminId = formattedData.id; 
-        return req.session.save((err)=>{
-            if (err) {
-             return sendResponse(res, {message: 'Something Went Wrong...'}, response.process, response.status, response.statusCode);
-            }
-        
+        const formattedData = await dataFormatter(response.data);
+
+        if (response.status === true) {
+            req.session.isAuth = true;
+            req.session.adminId = formattedData.id;
+            return req.session.save((err) => {
+                if (err) {
+                    return sendResponse(res, { message: 'Something Went Wrong...' }, response.process, response.status, response.statusCode);
+                }
+
+                sendResponse(res, response.data, 'login', response.status, response.statusCode);
+            })
+        }
+        else {
             sendResponse(res, response.data, response.process, response.status, response.statusCode);
-        })
-       }      
-       else{
-        sendResponse(res, response.data, response.process, response.status, response.statusCode);
-       }
+        }
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
 exports.updateAdmin = async (req, res) => {
-    
+
     try {
         const { body } = await req;
-        const file = req.file ? JSON.stringify(file && { filePath: file.path, fileName: file.filename }) : null;
-        const jsonData = req.file ? JSON.parse(body.data) : body.data; // Parse the JSON data from the body
+        console.log(req.file)
+        const file = await req.file ? JSON.stringify(req.file && { filePath: req.file.path, fileName: req.file.filename }) : null;
+        console.log(file)
+      
+        const jsonData = body.data; // Parse the JSON data from the body
         const adminInfo = await htmlSanitizer(jsonData.info);
 
         const data = {
-                ...adminInfo,
-                file: file,
-            };
-        
+            ...adminInfo,
+            file: file,
+        };
+
 
         const id = await jsonData.id;
 
         const admin = new adminQuery();
         const response = await admin.updateOne(id, data);
-        
+
         const formattedData = await dataFormatter(response.data)
 
         sendResponse(res, formattedData, response.process, response.status, response.statusCode);
@@ -84,7 +89,7 @@ exports.updateAdmin = async (req, res) => {
 };
 exports.deleteAdmin = async (req, res) => {
     const id = escapeHTML(req.body.id);
-    
+
     try {
         const admin = new adminQuery();
         const response = await admin.deleteOne(id);

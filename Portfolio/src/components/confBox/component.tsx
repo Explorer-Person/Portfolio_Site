@@ -33,7 +33,6 @@ const ConfBox: React.FC = () => {
         } else if (inheritor === 'abilities') {
             inputs = InputGenerator(abilityBoxInfo, handleChange);
         } else if (inheritor === 'admin') {
-            console.log(adminInfo);
             inputs = InputGenerator(adminInfo, handleChange);
         }
 

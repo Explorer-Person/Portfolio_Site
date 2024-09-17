@@ -7,7 +7,7 @@ export const loginApi = createAsyncThunk(
   async (
     { endpoint, data, method, headers = {} }: 
     { endpoint: string, data: LoginInfo, method: string, headers?: Record<string, string> },
-    { rejectWithValue }
+    { rejectWithValue } // Include rejectWithValue here
   ) => {
     try {
       const response = await axiosInstance.post(endpoint, data, {
@@ -20,7 +20,7 @@ export const loginApi = createAsyncThunk(
       });
       const responseData = response.data;
 
-      // Ensure the success response has a consistent structure
+      // Successful response handling
       return {
         process: responseData.process || "login",
         status: responseData.status || true,
@@ -29,7 +29,7 @@ export const loginApi = createAsyncThunk(
         statusCode: responseData.statusCode || 200,
       };
     } catch (error: any) {
-      // Return a consistent error structure
+      // Properly call rejectWithValue here
       return rejectWithValue({
         process: error.response?.data?.process || "login",
         status: false,

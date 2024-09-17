@@ -61,8 +61,7 @@ class ProjectsQuery {
   deleteOne = async (id) => {
     const query = "DELETE FROM projects WHERE id=?";
     const param = [id];
-    console.log(param);
-    const response = dbResponseHandler(
+    const response = await dbResponseHandler(
       null,
       201,
       "deleteOne",
@@ -70,6 +69,7 @@ class ProjectsQuery {
       param,
       projectsModel()
     );
+
     if(response.status){
       return this.getAll();
     }else{

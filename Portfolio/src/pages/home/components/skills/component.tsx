@@ -1,4 +1,4 @@
-import { ConfButtons, CustomButton, SkillBox } from "@src/components";
+import { CustomButton, SkillBox } from "@src/components";
 
 import style from "./style.module.css";
 import { useAppSelector } from "@src/store/hook";
@@ -27,10 +27,8 @@ const Skills = () => {
             <div className={`${style.boxes}`}>
                 {
                     skillBoxArray.map(skillBoxInfo => (
-                        <div key={skillBoxInfo.id} style={{ position:'relative',width:'45%', margin:'1rem'}}>
-                            <div>
+                        <div key={skillBoxInfo.id} className={`${style.box}`}>
                             <SkillBox key={skillBoxInfo.id} skillBoxInfo={skillBoxInfo} />
-                            </div>
                         </div>
                     ))
                 }

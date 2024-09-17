@@ -2,7 +2,7 @@
 .footer {
   background-color: #333;
   color: #fff;
-  position: static; 
-  bottom: 0;
+  position: relative; 
+  bottom: 0px;
   width: 100%;
 }

@@ -17,8 +17,6 @@ const validator = [
         ,
     body('data.info.imgUrl')
         .trim()
-        .notEmpty().withMessage('Image url is required')
-        .isString().withMessage('Image url must be a string')
         .escape()
         ,
     body('data.info.url')

@@ -50,6 +50,7 @@ exports.uploadFile = (req, res, next) => {
 
     // File is secure, attach it to the request object for later use
     req.uploadedFile = file;
+    req.body.data = JSON.parse(req.body.data);
 
     // Proceed to the next middleware or route handler
     next();

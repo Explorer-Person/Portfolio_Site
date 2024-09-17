@@ -1,45 +1,42 @@
-const session = require('express-session');
-const Knex = require('knex');
-const {ConnectSessionKnexStore} = require('connect-session-knex');
-const { Model } = require('objection');
-const {v4: genuuid} = require('uuid');
+const session = require("express-session");
+const MySQLStore = require("express-mysql-session")(session);
+const { v4: genuuid } = require('uuid');
 
-const express = require('express');
+const express = require("express");
 const middleware = express();
 
-
-const knex = Knex({
- client: 'mysql2',
- connection: {
-  host: process.env.DB_HOST,
+const optionsUser = {
+  database: process.env.DB_NAME,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
-}
-});
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  createDatabaseTable: true,
+  expiration: 30 * 60 * 1000,
+  schema: {
+    tableName: 'admin_sessions', 
+  }
+};
 
-Model.knex(knex);
+const sessionDB = new MySQLStore(optionsUser);
 
-const store = new ConnectSessionKnexStore({
-  knex: knex,
-  tablename: 'sessions', // optional. Defaults to 'sessions'
-  createtable: true // Automatically create the table if it doesn't exist
-});
 
-let sess = {
-  genid: function(req){
-   return genuuid()
-  },
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  store: store,
-  cookie: {
-    secure: false, // Ensures the cookie is only used over HTTPS
-    httpOnly: true, // Ensures the cookie is sent only via HTTP(S), not accessible via client-side JavaScript
-    maxAge: 1000 * 60 * 60 * 1 // 1 hour
-  },
-}
+middleware.use("/",
+  session({
+    genid: function (req) {
+      return genuuid();
+    },
+    name: "auth",
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      path: "/",
+      httpOnly: true,
+    },
+    store: sessionDB,
+  })
+);
 
 
 if (middleware.get('env') === 'production') {
@@ -47,6 +44,5 @@ if (middleware.get('env') === 'production') {
   sess.cookie.secure = true // serve secure cookies
 }
 
-middleware.use(session(sess));
 
 module.exports = middleware;

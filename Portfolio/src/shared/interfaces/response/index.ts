@@ -1,3 +1,3 @@
-import { ResponseDataProps, RegularResponse, ErrorResponseDev, ErrorResponseProd, StateResponse } from "./interface";
+import { AlertInfo, ValidationError, ResponseDataProps, RegularResponse, ErrorResponseDev, ErrorResponseProd, StateResponse } from "./interface";
 
-export type { ResponseDataProps, RegularResponse, ErrorResponseDev, ErrorResponseProd, StateResponse};
+export type { AlertInfo,  ValidationError, ResponseDataProps, RegularResponse, ErrorResponseDev, ErrorResponseProd, StateResponse};

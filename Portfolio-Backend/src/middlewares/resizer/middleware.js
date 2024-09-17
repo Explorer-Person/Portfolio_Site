@@ -1,23 +1,29 @@
 
-const jimp = require("jimp");
+const Jimp = require("jimp");
 const ffmpegStatic = require('ffmpeg-static');
 const ffmpeg = require("fluent-ffmpeg");
 const path = require("path");
 const fs = require('node:fs');
 module.exports = async (req, res, next) => {
   if (!req.file) {
+  console.log(req.file, 'FilePath');
+
     return next();
   }
 
-  const filePath = req.file.path;
+  let filePath = req.file.path;
   const mimeType = req.file.mimetype;
   const imageMimeTypes = ["image/jpeg", "image/jpg", "image/png"];
   const videoMimeTypes = ["video/mp4"];
 
+
+  filePath = filePath.replace(/\\/g, "/");
+  console.log("Normalized Path: ", filePath);
   // Process image files
   if (imageMimeTypes.includes(mimeType)) {
     try {
-      const media = await jimp.read(filePath);
+      console.log("Normalized Path: ", filePath);      
+      const media = await Jimp.read(filePath);
 
       // Set the target dimensions for image resizing
       const width = 600; // Change this to your desired width

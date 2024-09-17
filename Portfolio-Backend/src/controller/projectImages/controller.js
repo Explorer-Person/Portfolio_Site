@@ -41,7 +41,7 @@ exports.addProjectImage = async (req, res) => {
     try {
         const { body } = await req;
         const file = req.file ? JSON.stringify(req.file && { filePath: req.file.path, fileName: req.file.filename }) : null;
-        const jsonData = req.file ? JSON.parse(body.data) : body.data; // Parse the JSON data from the body
+        const jsonData = body.data; // Parse the JSON data from the body
         
         const projectImagesInfo = await htmlSanitizer(jsonData.info);
         const fk = await jsonData.fk;
@@ -63,7 +63,7 @@ exports.updateProjectImage = async (req, res) => {
     try {
         const { body } = await req;
         const file = await req.file ? JSON.stringify(req.file && { filePath: req.file.path, fileName: req.file.filename }) : null;
-        const jsonData = await req.file ? JSON.parse(body.data) : body.data; // Parse the JSON data from the body
+        const jsonData = body.data; // Parse the JSON data from the body
         
         const projectImagesInfo = await htmlSanitizer(jsonData.info);
         const id = await jsonData.id;

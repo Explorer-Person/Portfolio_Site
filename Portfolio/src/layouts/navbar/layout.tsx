@@ -26,9 +26,9 @@ const NavbarLayout = () => {
         <div>
             <Navbar bg="dark" data-bs-theme="dark">
                 <Container>
-                    <Navbar.Brand href="/">Navbar</Navbar.Brand>
-                    <Nav className="me-auto mx-5">
-                        <Nav.Link href="#home">Home</Nav.Link>
+                    <Navbar.Brand href="/">{ window.innerWidth < 500 ? '' : 'Portfolio' }</Navbar.Brand>
+                    <Nav className="me-auto ">
+                        <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="#info">Info</Nav.Link>
                         <Nav.Link href="#skills">Skills</Nav.Link>
                     </Nav>

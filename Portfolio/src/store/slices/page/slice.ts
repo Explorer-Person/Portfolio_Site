@@ -1,11 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
-  AlertInfo,
   ButtonInfo,
   infos,
   MainMediaInfo,
   ProjectDetailInfo,
 } from "@src/shared";
+import { AlertInfo } from "@src/shared/interfaces/response";
 
 interface InitialStateIF {
   confStatus: string;
@@ -50,8 +50,7 @@ const pageSlice = createSlice({
       state.buttonInfo = action.payload;
     },
     setAlertBox: (state, action: PayloadAction<AlertInfo[]>) => {
-      console.log(action.payload);
-        state.alertInfo = [...action.payload];
+        state.alertInfo = action.payload;
     },
     setPageUrl: (state, action: PayloadAction<string>) => {
       state.pageUrl = action.payload;

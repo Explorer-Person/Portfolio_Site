@@ -58,7 +58,8 @@ exports.deleteAbility = async (req, res) => {
         const id = req.body.data;
         const abilities = new abilitiesQuery();
         const response = await abilities.deleteOne(id);
-        sendResponse(res, id, response.process, response.status, response.statusCode);
+        const formattedData = dataFormatter(response.data)
+        sendResponse(res, formattedData, response.process, response.status, response.statusCode);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

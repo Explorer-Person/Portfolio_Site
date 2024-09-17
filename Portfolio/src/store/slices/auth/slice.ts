@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { authorizeApi, loginApi, signupApi } from "@src/store";
-import { RegularResponse, LoginInfo, SignupInfo, StateResponse, response, ErrorResponseDev } from "@src/shared";
+import { RegularResponse, LoginInfo, SignupInfo, StateResponse, response} from "@src/shared";
 
 interface AuthState {
   infos: {
@@ -41,24 +41,29 @@ const authSlice = createSlice({
       // Handle loginApi
       .addCase(loginApi.pending, (state) => {
         state.response.loading = true;
-        state.response.error = false;
+        state.response.error = [];
       })
       .addCase(
         loginApi.fulfilled,
         (state, action: PayloadAction<RegularResponse>) => {
+        const {status, process, data, statusCode} = action.payload as StateResponse;
+
           state.response.loading = false;
-          state.response.data = action.payload.data;
-          state.response.process = action.payload.process;
+          state.response.data = data;
+          state.response.process = process;
+          state.response.status = status;
+          state.response.statusCode = statusCode;
         }
       )
       .addCase(loginApi.rejected, (state, action) => {
-        const {status, process, error, statusCode} = action.payload;
+        console.log(action.payload, 'helooo')
+        const {status, process, error, statusCode} = action.payload as StateResponse;
         state.response.loading = false;
-        console.log(action)
         state.response.status = status;
         state.response.process = process;
         state.response.statusCode = statusCode;
         state.response.error = error ?? "Failed to login";
+        console.log(state.response.error);
       })
       // Handle signupApi
       .addCase(signupApi.pending, (state) => {
@@ -75,9 +80,8 @@ const authSlice = createSlice({
         }
       )
       .addCase(signupApi.rejected, (state, action) => {
-        const {status, process, error, statusCode} = action.payload;
+        const {status, process, error, statusCode} = action.payload as StateResponse;
         state.response.loading = false;
-        console.log(action)
         state.response.status = status;
         state.response.process = process;
         state.response.statusCode = statusCode;
@@ -98,12 +102,12 @@ const authSlice = createSlice({
         }
       )
       .addCase(authorizeApi.rejected, (state, action) => {
-        const {status, process, error, statusCode} = action.payload;
+        const response = action.payload as StateResponse;
+        const {error, statusCode, status, process} = response || {};
         state.response.loading = false;
-        console.log(action)
+        state.response.statusCode = statusCode;
         state.response.status = status;
         state.response.process = process;
-        state.response.statusCode = statusCode;
         state.response.error = error ?? "Failed to Authorize";   
       });
   },

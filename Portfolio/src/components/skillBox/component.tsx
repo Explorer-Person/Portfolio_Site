@@ -32,9 +32,7 @@ const SkillBox = ({ skillBoxInfo }: SkillBoxProps) => {
                 </div>
             </button>
             <div>
-                <div style={{ marginLeft: '12%', position: 'relative' }}>
                     {status === true ? <ConfButtons id={skillBoxInfo.id} inheritor='skills' /> : null}
-                </div>
             </div>
         </div>
     )

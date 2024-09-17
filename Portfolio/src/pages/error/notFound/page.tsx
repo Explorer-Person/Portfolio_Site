@@ -1,7 +1,8 @@
 import React from 'react';
 import './style.css';
+import { routeHandler } from '@src/shared';
 
-const ErrorPage: React.FC = () => {
+const NotFoundPage: React.FC = () => {
 
 
   return (
@@ -12,10 +13,10 @@ const ErrorPage: React.FC = () => {
         <p className="error-message">
           The page you are looking for does not exist. It might have been moved or deleted.
         </p>
-        <button className="home-button" >Go to Home</button>
+        <button onClick={()=>routeHandler('/')} className="home-button" >Go to Home</button>
       </div>
     </div>
   );
 };
 
-export default ErrorPage;
+export default NotFoundPage;

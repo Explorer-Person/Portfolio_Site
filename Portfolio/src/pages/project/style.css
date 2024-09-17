@@ -1,4 +1,50 @@
-.addButton{
+.addButton {
     margin: 8% 5%;
+}
 
+.projects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Ensures even spacing between project boxes */
+    margin-bottom: 5%;
+}
+
+.projectBox {
+    width: 40%;
+    margin: 0 5%;
+    margin-bottom: 20px; /* Adds space between rows of project boxes */
+}
+
+/* Responsive adjustments */
+
+/* For tablets and smaller screens (max-width: 768px) */
+@media (max-width: 768px) {
+    .projectBox {
+        width: 94%; /* Makes the project boxes slightly wider to fit two per row */
+        margin: 2% 3%;
+    }
+
+    .addButton {
+        width: 100%;
+        margin: 10% 5%; /* Adjusts margins to reduce spacing on smaller screens */
+    }
+}
+
+/* For mobile screens (max-width: 500px) */
+@media (max-width: 500px) {
+    .projects {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 5%;
+    }
+
+    .projectBox {
+        margin: 4% 1%;
+        width: 98%; /* Full width for project boxes on small screens */
+    }
+    
+
+    .addButton {
+        margin: 15% 0%; /* Centers the add button with less horizontal margin */
+    }
 }

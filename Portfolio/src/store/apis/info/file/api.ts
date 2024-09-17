@@ -7,7 +7,7 @@ export const fileApi = createAsyncThunk(
   async ({ endpoint, method, data, headers = {} }: RequestApiProps, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.request({
-        url: `${endpoint}/${encodeURI(data)}`,
+        url: `${endpoint}/${encodeURI(data as any)}`,
         method: method,
         headers: {
           ...headers,

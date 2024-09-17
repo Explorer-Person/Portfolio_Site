@@ -18,9 +18,10 @@
             const password = result.data[0].password;
             const isMatching = bcrypt.compareSync(adminInfo.password, password); 
             if(isMatching){
-                  return result;  
+              return this.getOne();
             }else{
-              await dbResponseHandler('Auth Failed...', 200, 'auth', null, null, true, adminModel());
+              console.log('is there')
+              return dbResponseHandler('Login Failed...', 401, 'login', null, null, false, adminModel());
             }
       } 
       addOne = async (adminInfo) => {
@@ -38,8 +39,8 @@
                 const isThere = await this.getOne();  // Ensure this returns a valid array
         
                 if (Array.isArray(isThere) && isThere.length < 1) {
-                    await dbResponseHandler(null, 201, 'addOne', query, params, true, adminModel());
-                    return this.getOne();
+                    return dbResponseHandler(null, 201, 'addOne', query, params, true, adminModel());
+                    // return this.getOne();
                   } else {
                     return dbResponseHandler(`You Cannot Add More!!`, 406, 'addOne', query, params, false, null);
                 }

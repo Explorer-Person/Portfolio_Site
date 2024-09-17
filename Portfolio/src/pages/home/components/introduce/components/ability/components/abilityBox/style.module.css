@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
   padding: 20px;
   background-color: #f8f9fa;
   border-radius: 10px;
@@ -28,20 +27,81 @@
 .confButtons {
   text-align: center;
   display: none;
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  gap: 5px;
+  position:absolute;
   transition: 0.1s;
 }
 
-.abilityBox:hover .confButtons {
+.abilityBox:hover .confButtons  {
   display: flex;
+  right: 0.5%;
+  left: 1%;
+  bottom: 2%;
+}
+.confButtons div{
+  display: block;
 }
 
 .actionButtonContainer {
+  position: relative;
   width: 50%;
-  margin-top: 5%;
-  display: flex;
-  justify-content: center;
+  left: 25%;
+  margin-top: 10%;
+}
+
+/* Responsive adjustments for screens smaller than 768px */
+@media (max-width: 768px) {
+  .abilityContainer {
+    margin: 15px;
+    padding: 15px;
+  }
+  .abilityList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .abilityBox {
+    margin-bottom: 15px;
+  }
+  .actionButtonContainer {
+    position: relative;
+    left: 25%;
+    margin-top: 10%;
+  }
+  .abilityBox:hover .confButtons {
+    display: flex;
+    width: 100%;
+    right: 0.5%;
+    left: 1%;
+    bottom: 2%;
+  }
+}
+
+/* Responsive adjustments for screens smaller than 500px */
+@media (max-width: 500px) {
+  .abilityList {
+    display: block;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .abilityContainer {
+    margin: 10px;
+    padding: 10px;
+  }
+  .abilityList {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .abilityBox {
+    width: 90%;
+    margin: 0 5%;
+    margin-bottom: 10px;
+  }
+  .actionButtonContainer {
+    position: relative;
+    left: 25%;
+    margin-top: 10%;
+  }
 }

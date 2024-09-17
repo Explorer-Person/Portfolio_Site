@@ -92,6 +92,7 @@ const validator = [
         ,
     // Sanitize and validate info.speciality
     body('data.info.speciality')
+        .optional()
         .isString().withMessage('Speciality must be a string')
         .isLength({ max: 100 }).withMessage('Speciality must be less than 100 characters')
         .escape()
@@ -114,13 +115,6 @@ const validator = [
         })
         .optional()
         .isLength({ max: 255 }).withMessage('Socials must be less than 255 characters')
-        .escape()
-        ,
-    // Validate id
-    body('data.id')
-        .optional()
-        .isInt().withMessage('ID must be integer')
-        .isLength({ max: 50 }).withMessage('ID must be less than 50 characters')
         .escape()
         ,
 ];

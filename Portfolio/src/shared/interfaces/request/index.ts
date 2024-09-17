@@ -1,3 +1,3 @@
-import { MainMediaInfo, ProjectImageInfo, ProjectDetailInfo, ButtonInfo, RequestApiProps, AdminInfo, AbilityBoxInfo, AlertInfo, LoginInfo, SignupInfo, SkillBoxInfo, ProjectBoxInfo } from "./interface";
+import { MainMediaInfo, ProjectImageInfo, ProjectDetailInfo, ButtonInfo, RequestApiProps, AdminInfo, AbilityBoxInfo, LoginInfo, SignupInfo, SkillBoxInfo, ProjectBoxInfo } from "./interface";
 
-export type { MainMediaInfo, ProjectImageInfo, ProjectDetailInfo, ButtonInfo, RequestApiProps, AdminInfo, AbilityBoxInfo, AlertInfo, LoginInfo, SignupInfo, SkillBoxInfo, ProjectBoxInfo}
+export type { MainMediaInfo, ProjectImageInfo, ProjectDetailInfo, ButtonInfo, RequestApiProps, AdminInfo, AbilityBoxInfo, LoginInfo, SignupInfo, SkillBoxInfo, ProjectBoxInfo}

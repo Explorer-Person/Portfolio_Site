@@ -16,7 +16,7 @@ export interface AdminInfo {
       speciality: string;
       praise: string;
       socials: string;
-      file:  FileInfo | Blob | File | string | null,
+      file:  FileInfo | Blob | File | string | null | MediaSource;
    }
 }
 
@@ -39,7 +39,7 @@ export interface SkillBoxInfo {
       title: string;
       level: string;
       imgUrl: string;
-      file:  FileInfo | Blob | File | string | null;
+      file:  FileInfo | Blob | File | string | null | MediaSource;
    }
 }
 
@@ -53,7 +53,7 @@ export interface SkillBoxInfo {
       url: string;
       imgUrl: string;
       videoUrl: string;
-      file: FileInfo | Blob | File | string | null;
+      file: FileInfo | Blob | File | string | null | MediaSource;
    }
 }
  
@@ -67,13 +67,13 @@ export interface ProjectImageInfo {
    fk: string;
    info: {
       url: string,
-      file:  FileInfo | Blob | File | string | null;
+      file:  FileInfo | Blob | File | string | null | MediaSource;
    }
  }
 export interface FileInfo {
       fileName: string;
       filePath: string;
-      fileData: Blob | MediaSource | File | null | string;
+      fileData: Blob | MediaSource | File | FileInfo | null | string;
  }
 export interface AbilityBoxInfo {
    id: string;
@@ -82,12 +82,6 @@ export interface AbilityBoxInfo {
       title: string;
       level: string;
    }
-}
-
-export interface AlertInfo {
-   process: boolean;
-   status: boolean;
-   content: string;
 }
 
 export interface ButtonInfo {

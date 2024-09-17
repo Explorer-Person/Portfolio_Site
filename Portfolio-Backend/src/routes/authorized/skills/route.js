@@ -15,8 +15,8 @@ const router = express.Router();
 
 // Define routes
 router.get("/getOne/:id", getSkill);
-router.post("/addOne", multer.fileUploader, test_mw, resizer, skillsValidator, validationResult, addSkill);
-router.put("/updateOne", multer.fileUploader, test_mw, resizer, skillsValidator, validationResult, updateSkill);
+router.post("/addOne", multer.fileUploader, test_mw, skillsValidator, resizer, validationResult, addSkill);
+router.put("/updateOne", multer.fileUploader, test_mw, skillsValidator, resizer, validationResult, updateSkill);
 router.delete("/deleteOne", deleteSkill);
 router.post("/deleteAll", deleteSkills);
 

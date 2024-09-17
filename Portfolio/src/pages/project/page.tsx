@@ -22,21 +22,19 @@ const ProjectPage = () => {
         dispatch(setProjectImageArray([]));
     };
     useEffect(() => {
-        dispatch(projectApi({ endpoint: '/api/projects/getAll', method: 'GET', data: '' }))
+        dispatch(projectApi({ endpoint: '/api/projects/getAll', method: 'GET', data: {file: null, info: null} }))
         dispatch(setPageUrl(location.pathname));
     }, [])
 
     useEffect(() => {
         const url = pageUrl.split('/')[2];
         if (skillBoxArray.length > 0 && url) {
-            console.log(url)
             const interestedSkill = skillBoxArray.filter(skillBox => skillBox.info.url.toString() === url.toString());
             const projects = interestedSkill ? projectBoxArray.filter(projectBox => projectBox.fk === interestedSkill[0].id) : [];
             // Update the state only if the projects are different
             if (JSON.stringify(projectBoxArray) !== JSON.stringify(projects)) {
                 dispatch(setProjectBoxArray(projects));
             }
-            console.log(skillBoxArray)
             dispatch(setProjectBoxInfo({
                 ...projectBoxInfo,
                 fk: interestedSkill[0].id
@@ -59,18 +57,16 @@ const ProjectPage = () => {
         <div>
             <h2 className="text-center my-5">Projects</h2>
 
-            <div className="d-flex flex-wrap">
+            <div className="projects">
                 {projectBoxArray.map((projectBoxInfo, index) => (
-                    <div key={index} className="w-25 m-5">
+                    <div key={index} className="projectBox">
                         {projectDetail.status && (
                             <DetailBox
                             onClose={handleCloseModal}
                             />
 
                         )}
-                        <div key={projectBoxInfo.id} className="text-center w-100 mx-5">
                             <ProjectBox key={projectBoxInfo.id} projectBoxInfo={projectBoxInfo} />
-                        </div>
                     </div>
 
                 ))}

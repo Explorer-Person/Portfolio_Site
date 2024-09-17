@@ -5,22 +5,28 @@ import React from 'react';
 
 interface InputGeneratorPrompts {
     infoKey: string;
+    infoValue: string;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const InputGenerator = (info: AdminInfo | AbilityBoxInfo | SkillBoxInfo | ProjectBoxInfo | ProjectImageInfo, handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void) => {
-    console.log(info)
-    return Object.keys(info.info).map((key: string) => {
-        if (info !== null) {
-            return (
-                <Inputs key={key} infoKey={key} handleChange={handleChange}/>
-            );
-        }
+const InputGenerator = (
+    info: AdminInfo | AbilityBoxInfo | SkillBoxInfo | ProjectBoxInfo | ProjectImageInfo,
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  ) => {
+    return Object.keys(info.info).map((key) => {
+      if (info !== null) {
+        // Assert key as keyof typeof info.info
+        const typedKey = key as keyof typeof info.info;
+        return (
+          <Inputs key={key} infoKey={key} infoValue={info.info[typedKey] || ''} handleChange={handleChange} />
+        );
+      }
     });
-};
+  };
+  
 
 
-export const Inputs = ({infoKey, handleChange}: InputGeneratorPrompts) =>{
+export const Inputs = ({infoKey, infoValue, handleChange}: InputGeneratorPrompts) =>{
     const dispatch = useAppDispatch();
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) =>{
         const {files} = event.target as HTMLInputElement 
@@ -51,6 +57,7 @@ export const Inputs = ({infoKey, handleChange}: InputGeneratorPrompts) =>{
                 type={infoKey === 'password' ? 'password' : infoKey === 'mail' ? 'email' : infoKey === 'bornDate' ? 'date' : 'text'}
                 id={infoKey}
                 name={infoKey}
+                defaultValue={infoValue}
                 onChange={handleChange}
                 className='h-100'
                 required={infoKey === 'url' || infoKey === 'title'}

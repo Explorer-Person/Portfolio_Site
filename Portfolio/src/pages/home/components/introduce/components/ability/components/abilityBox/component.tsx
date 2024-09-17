@@ -14,10 +14,10 @@ const AbilityBox = ({showStatus}:AbilityBoxProps) => {
     const dispatch = useAppDispatch();
     const { abilityBoxArray } = useAppSelector((state: RootState) => state.info.infos);
     const [colors] = useState(["#343a40", "#ffc107", "#007bff", "#dc3545"]);
-    const [abilityStyles, setAbilityStyles] = useState<StyleProps[]>([]);
+    const [abilityStyles, setAbilityStyles] = useState<any[]>([]);
 
     useEffect(() => {
-        dispatch(abilityApi({ endpoint: '/api/abilities/getAll', method: 'GET', data: null }));
+        dispatch(abilityApi({ endpoint: '/api/abilities/getAll', method: 'GET', data: {file: null, info: null} }));
     }, [dispatch]);
 
     useEffect(() => {

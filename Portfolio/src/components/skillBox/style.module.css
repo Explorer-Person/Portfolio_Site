@@ -8,24 +8,24 @@
     text-align: center;
     margin-bottom: 10%;
 }
-.imgContainer:hover{
+.imgContainer:hover {
     transform: translateY(-15px);
 }
-.imgContainer:hover .customUnderline{
+.imgContainer:hover .customUnderline {
     width: 80%;
     margin: 0 10%;
 }
+
 .imgBox {
     position: relative;
     top: 0;
     left: 0;
     width: 100%;
     border-radius: 20px;
-
     height: auto;
 }
 
-.img{
+.img {
     border-radius: 20px;
     border: 5px solid black;
     width: 100%;
@@ -33,22 +33,22 @@
 
 .textBox {
     position: absolute;
-    background-color: rgb(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
     border-radius: 20px;
-
-    width: 100%;
+    width: 100% !important;
     height: 100%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: white; /* Optionally, change color to be visible on top of the image */
+    color: white;
 }
-.text{
+.text {
     margin-top: 30%;
     text-align: center;
     font-weight: 700;
     font-size: 250%;
 }
+
 .customUnderline {
     position: relative;
     background-color: white;
@@ -57,4 +57,49 @@
     margin: 0 40%;
     z-index: 500;
     transition: 0.5s;
-  }
+}
+
+/* Responsive adjustments for screens smaller than 768px */
+@media (max-width: 768px) {
+    .imgContainer {
+        height: auto;
+        margin-bottom: 8%;
+    }
+
+    .text {
+        font-size: 200%;
+        margin-top: 25%;
+    }
+    
+
+    .customUnderline {
+        position: relative;
+        background-color: white;
+        height: 4px;
+        width: 20%;
+        margin: 0 40%;
+        z-index: 500;
+        transition: 0.5s;
+    }
+}
+
+/* Responsive adjustments for screens smaller than 500px */
+@media (max-width: 500px) {
+    .imgContainer {
+        height: auto;
+        margin-bottom: 6%;
+    }
+
+    .text {
+        font-size: 150%;
+        margin-top: 20%;
+    }
+    .customUnderline {
+        position: relative;
+        background-color: white;
+        height: 4px;
+        margin: 0 40%;
+        z-index: 500;
+        transition: 0.5s;
+    }
+}

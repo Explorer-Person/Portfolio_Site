@@ -3,7 +3,9 @@ import './style.css'
 import { RootState } from '@src/store/store';
 import { setAlertBox } from '@src/store/slices/page/slice';
 import { useEffect } from 'react';
-import { AlertInfo } from '@src/shared';
+import { ValidationError } from '@src/shared';
+import { AlertInfo } from '@src/shared/interfaces';
+
 
 interface BoxShapeProps {
     color: string;
@@ -21,38 +23,51 @@ const BoxShape = ({ color, symbol, content }: BoxShapeProps) => {
 };
 
 const GiveAlert = () => {
-    const alertBoxArray = useAppSelector((state: RootState) => state.pageActions.alertInfo);
+    const alertInfo = useAppSelector((state: RootState) => state.pageActions.alertInfo);
     const dispatch = useAppDispatch();
-    const { error, process, status } = useAppSelector((state: RootState) => state.auth.response);
+    const authResponse = useAppSelector((state: RootState) => state.auth.response);
+    const infoResponse = useAppSelector((state: RootState) => state.info.response);
+    const alertBoxArray = alertInfo as AlertInfo[];
+
+    const customError = authResponse.error.length > 0 ? authResponse.error : infoResponse.error;
+    const customLoading= authResponse.loading || infoResponse.loading;
 
     useEffect(() => {
-        if (error) {
-            const alertArray: AlertInfo[] = error.map((err) => ({
-                process: status,
-                status: true,
-                content: err.msg
-            }));
-            console.log('start alert....', alertArray)
-            console.log('start error....', error)
+        if (Array.isArray(customError)) {
+            
+            const validationErrors = customError as ValidationError[]
+            const alertArray = validationErrors.map((err) => {
+                return {
+                    status: false,
+                    message: err.msg
+                }
+            });
             dispatch(setAlertBox([...alertArray]));
+        } else if (typeof customError === 'string') {
+            const array = [];
+            const alertError = {
+                status: false,
+                message: customError
+            }
+            array.push(alertError);
+            dispatch(setAlertBox(array));
         }
-    }, [dispatch, error]);
+    }, [dispatch, customError, customLoading]);
 
     useEffect(() => {
         if (alertBoxArray.length > 0) {
-            console.log(alertBoxArray)
+    
             const timer = setTimeout(() => {
-                console.log('start effect')
                 dispatch(setAlertBox([]));
             }, 2000);
             return () => clearTimeout(timer); // Cleanup on unmount or when alerts change
         }
     }, [alertBoxArray, dispatch]);
 
-    const shouldRenderAlerts = process === 'validation' && alertBoxArray.length > 0;
+    const shouldRenderAlerts = alertBoxArray.length > 0;
 
     return shouldRenderAlerts ? (
-        <div className='d-block'>
+        <div className='alerts'>
             {alertBoxArray.map((content, index) => (
                 <div key={index} className='m-3'>
                     <AlertBox content={content} />
@@ -67,10 +82,14 @@ interface AlertBoxProps {
 }
 
 const AlertBox = ({ content }: AlertBoxProps) => {
-    return content.status ? (
-        content.process ? 
-            <BoxShape color='green' symbol='✅' content={content.content}/> : 
-            <BoxShape color='red' symbol='❌' content={content.content}/>
+    
+
+    return content ? (
+        content.status ?
+            <BoxShape color='green' symbol='✅' content={content.message} />
+            :
+            <BoxShape color='red' symbol='❌' content={content.message} />
+
     ) : null;
 };
 

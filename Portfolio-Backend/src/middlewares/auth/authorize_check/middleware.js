@@ -5,9 +5,9 @@ const middleware = express();
 middleware.use('/api/admin/authorize', function(req,res,next){
   const isAuth = req.session.isAuth;
   if(!isAuth){
-    return sendResponse(res, isAuth, 'auth', isAuth, 401)
+    return sendResponse(res, 'Cannot Authorized', 'auth', false, 401)
   }
-  sendResponse(res, isAuth, 'auth', isAuth , 200);
+  sendResponse(res, 'Authorized Successfully', 'auth', true , 200);
 })
 
 module.exports = middleware; 

@@ -30,7 +30,7 @@ exports.addProject = async (req, res) => {
     try {
         const { body } = await req;
         const file = req.file ? JSON.stringify(req.file && { filePath: req.file.path, fileName: req.file.filename }) : null;
-        const jsonData = req.file ? JSON.parse(body.data) : body.data; // Parse the JSON data from the body
+        const jsonData = body.data; // Parse the JSON data from the body
         
         const projectInfo = await htmlSanitizer(jsonData.info);
         const fk = await jsonData.fk;
@@ -51,7 +51,7 @@ exports.updateProject = async (req, res) => {
     try {
         const { body } = await req;
         const file = req.file ? JSON.stringify(req.file && { filePath: req.file.path, fileName: req.file.filename }) : null;
-        const jsonData = req.file ? JSON.parse(body.data) : body.data; // Parse the JSON data from the body
+        const jsonData = body.data; // Parse the JSON data from the body
         const projectsInfo = await htmlSanitizer(jsonData.info);
 
         const id = jsonData.id;
@@ -71,10 +71,11 @@ exports.updateProject = async (req, res) => {
 };
 exports.deleteProject = async (req, res) => {
     try {
-        const id = req.body.data.info;
+        const id = req.body.info;
         const projects = new projectsQuery();
         const response = await projects.deleteOne(id);
-        sendResponse(res, id, response.process, response.status, response.statusCode);
+        const formattedData = dataFormatter(response.data)
+        sendResponse(res, formattedData, response.process, response.status, response.statusCode);
     
     } catch (err) {
         res.status(500).json({ error: err.message });

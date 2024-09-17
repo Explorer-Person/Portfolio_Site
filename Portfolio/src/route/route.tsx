@@ -3,7 +3,7 @@ import { Footer, NavbarLayout } from '@src/layouts';
 import { HomePage, LoginPage, ProjectPage, SignupPage } from '@src/pages';
 import { ConfBox, GiveAlert } from '@src/components';
 import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorPage } from '@src/pages/error';
+import { ErrorPage, NotFoundPage } from '@src/pages/error';
 import { useAppDispatch, useAppSelector } from '@src/store/hook';
 import { RootState } from '@src/store/store';
 import { useEffect } from 'react';
@@ -19,7 +19,6 @@ const AppRoutes = () => {
         dispatch(skillApi({endpoint: '/api/skills/getAll', method: 'GET', data: {info: null, file: null}}));           
         dispatch(projectApi({endpoint: '/api/projects/getAll', method: 'GET', data: {info: null, file: null}}));           
         dispatch(adminApi({endpoint: '/api/admin/getOne', method: 'GET', data: {info: null, file: null}}));           
-         
     },[dispatch, pageUrl])
     const logError = (error: Error) => {
       console.log(error);  
@@ -29,8 +28,7 @@ const AppRoutes = () => {
         <div>
             <ErrorBoundary
                 fallback={<ErrorPage />}
-                onReset={(details) => {
-                    console.log(details);
+                onReset={() => {
                     window.location.reload()
                 }}
                 onError={logError}
@@ -49,6 +47,7 @@ const AppRoutes = () => {
                       <Route path="login" element={<LoginPage />} />
                       <Route path="signup" element={<SignupPage />} />
                     </Route>
+                    <Route path="/*" element={<NotFoundPage />} />
                     
                 </Routes>
                 <Footer />

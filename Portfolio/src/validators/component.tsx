@@ -6,18 +6,10 @@ import { useEffect } from "react";
 const ValidationAlert = () => {
   const dispatch = useAppDispatch();
   const { data, process } = useAppSelector((state: RootState) => state.info.response);
+  const confirmedData = data as any;
   useEffect(() => {
-    if (process === 'validation' && Array.isArray(data.message)) {
-      data.message.forEach(message => {
-        dispatch(setAlertBox((prevAlertBox: any) => [
-          ...prevAlertBox,
-          {
-            status: false,
-            process: false,
-            content: message.msg,
-          }
-        ]));
-      });
+    if (process === 'validation' && Array.isArray(confirmedData.message)) {
+        dispatch(setAlertBox(confirmedData.message));
     }
   }, [data, process, dispatch]);  
   return null;

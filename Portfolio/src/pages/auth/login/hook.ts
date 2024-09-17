@@ -10,9 +10,8 @@ import React from "react";
 const useLoginHook = () =>
     {
         const loginData = useAppSelector((state:RootState)=> state.auth.infos.loginData); 
-        const loading = useAppSelector((state:RootState)=> state.auth.response.loading); 
+        const {loading, status, process} = useAppSelector((state:RootState)=> state.auth.response); 
         const dispatch = useAppDispatch();
-
         const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>{
            const {name, value} = event.target
            dispatch(storeLoginData({...loginData, [name]: value}))
@@ -29,7 +28,9 @@ const useLoginHook = () =>
          return{
             data:{
                styleButton,
-               loading
+               loading,
+               status,
+               process
             },
             functions:{
                 handleChange,

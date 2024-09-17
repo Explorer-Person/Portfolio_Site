@@ -1,5 +1,5 @@
 import { ProjectImageInfo, AbilityBoxInfo, LoginInfo, ProjectBoxInfo, SignupInfo, SkillBoxInfo } from "../request";
-import { FileInfo } from "../request/interface";
+import { AdminInfo, FileInfo } from "../request/interface";
 
 export interface RegularResponse {
     statusCode: number;
@@ -8,15 +8,16 @@ export interface RegularResponse {
     data: ResponseDataProps;
 }
 
+export type ResponseDataProps = MediaSource | File | Blob | null | string | FileInfo | SkillBoxInfo | SkillBoxInfo[] | ProjectImageInfo[] | ProjectBoxInfo[] | AbilityBoxInfo[] | AdminInfo | AdminInfo[] | LoginInfo | SignupInfo;
+
 export interface StateResponse {
    data: ResponseDataProps;
    process: string;
    status: boolean;
    loading: boolean | null;
-   error: ValidationError[] | string[];
+   error: ValidationError[] | string[] | string;
    statusCode: number | null;
 }
-export type ResponseDataProps = MediaSource | Blob | null | string | FileInfo | SkillBoxInfo | SkillBoxInfo[] | ProjectImageInfo[] | ProjectBoxInfo[] | AbilityBoxInfo[] | LoginInfo | SignupInfo;
 
 
 
@@ -27,6 +28,11 @@ export interface ErrorResponseDev {
    error: ValidationError[] | string[];
 }
 
+
+export interface AlertInfo {
+   status: boolean,
+   message: string
+} 
 export interface ValidationError {
    type: string;
    value: string;
@@ -36,6 +42,6 @@ export interface ValidationError {
 }
 
 export interface ErrorResponseProd {
-   status: string,
+   status: boolean,
    message: string,
 }

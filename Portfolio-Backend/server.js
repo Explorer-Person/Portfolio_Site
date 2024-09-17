@@ -1,7 +1,6 @@
 require('dotenv').config();
 require('module-alias/register');
 require('./module-alias');
-const { test_mw } = require("@test");
 const express = require('express');
 const bp = require('body-parser')
 const morgan = require('morgan');
@@ -19,6 +18,7 @@ const port = process.env.PORT || 3000;
 app.use(morgan('dev'));
 app.use(helmet);
 app.use(express.json());
+
 // in latest body-parser use like below.
 app.use(bp.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.SESSION_SECRET));

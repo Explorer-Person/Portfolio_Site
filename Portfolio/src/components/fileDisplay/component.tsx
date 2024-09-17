@@ -1,13 +1,13 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useAppDispatch } from '@src/store/hook';
 import { FileInfo } from '@src/shared/interfaces/request/interface';
-import { getMimeType, InfoProp } from '@src/shared';
+import { getMimeType } from '@src/shared';
 import './style.css';
 import { projectImageApi } from '@src/store';
 
 interface FileDisplayProps {
     handleMediaChange: (mediaUrl: string, mediaType: 'video' | 'image') => void;
-    mediaInfo: InfoProp;
+    mediaInfo: any;
 }
 
 const FileDisplay = ({ mediaInfo, handleMediaChange }: FileDisplayProps) => {
@@ -35,7 +35,7 @@ const FileDisplay = ({ mediaInfo, handleMediaChange }: FileDisplayProps) => {
                 setFileUrl(url);
                 setFileType(mimeType);
                 setFileName(file.fileName as string);
-                console.log('displayed');
+
             }
         } catch (error) {
             console.error('Error fetching file:', error);
@@ -46,8 +46,9 @@ const FileDisplay = ({ mediaInfo, handleMediaChange }: FileDisplayProps) => {
 
     // Effect to trigger displayFile when mediaInfo updates
     useEffect(() => {
-        if (mediaInfo.info.file) {
-            displayFile(mediaInfo.info.file);
+        const file = mediaInfo.info.file as FileInfo;
+        if (file) {
+            displayFile(file);
         }
     }, [mediaInfo, displayFile]);
 
@@ -82,7 +83,7 @@ const FileDisplay = ({ mediaInfo, handleMediaChange }: FileDisplayProps) => {
         }
 
         return (
-            <div key={mediaInfo.id}>
+            <div key={mediaInfo?.id}>
                 File type not supported for preview. <a href={fileUrl}>{fileName}</a>
             </div>
         );

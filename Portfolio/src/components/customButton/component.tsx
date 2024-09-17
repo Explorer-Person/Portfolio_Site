@@ -20,7 +20,6 @@ const dispatch = useAppDispatch();
   const responseInfo = useAppSelector((state: RootState) => state.info.response);
 
   const isLoading = responseInfo.loading;
-  const isError = responseInfo.error
   // useEffect(() => {
   //   if (isError) {
   //     dispatch(setAlertBox([{

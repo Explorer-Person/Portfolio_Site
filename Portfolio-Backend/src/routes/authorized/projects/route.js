@@ -15,8 +15,8 @@ const { test_mw } = require("@test");
 
 // Define routes
 router.get("/getOne/:id", getProject);
-router.post("/addOne", multer.fileUploader, resizer, projectsValidator, validationResult, addProject);
-router.put("/updateOne", multer.fileUploader, resizer, projectsValidator, validationResult, updateProject);
+router.post("/addOne", multer.fileUploader, projectsValidator, resizer, validationResult, addProject);
+router.put("/updateOne", multer.fileUploader, projectsValidator, resizer, validationResult, updateProject);
 router.delete("/deleteOne", deleteProject);
 router.post("/deleteAll", deleteProjects);
 

@@ -13,7 +13,8 @@ const { test_mw } = require("@test");
 
 // Define routes
 router.get("/get", getAdmin);
-router.put("/updateOne", multer.fileUploader, resizer, test_mw, adminValidator, validationResult, updateAdmin );
+router.get("/getOne", getAdmin);
+router.put("/updateOne", multer.fileUploader, adminValidator, validationResult, resizer, updateAdmin );
 router.delete("/deleteOne", deleteAdmin);
 
 module.exports = router;

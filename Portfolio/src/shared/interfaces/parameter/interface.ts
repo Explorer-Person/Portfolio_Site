@@ -10,7 +10,19 @@ export interface StyleProps {
     padding: string;
 }
 
-export type  InfoProp = ProjectBoxInfo | ProjectImageInfo | SkillBoxInfo | AbilityBoxInfo | AdminInfo | LoginInfo | SignupInfo | string | null;
+export interface AbilityStyleProps {
+    backgroundColor: string,
+    color: string,
+    borderRadius: string,
+    padding: string,
+    margin: string,
+    textAlign: string,
+    boxShadow: string,
+    flex: string,
+    position: string,
+}
+
+export type InfoProp = ProjectBoxInfo | ProjectImageInfo | SkillBoxInfo | AbilityBoxInfo | AdminInfo | LoginInfo | SignupInfo | string | null;
 
 export type DataProp = {
     info: InfoProp;

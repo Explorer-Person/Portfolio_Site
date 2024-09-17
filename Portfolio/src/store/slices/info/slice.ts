@@ -17,6 +17,7 @@ import {
   RegularResponse,
   response,
   SkillBoxInfo,
+  StateResponse,
 } from "@src/shared";
 
 const initialState: InitialStateIF = {
@@ -47,7 +48,6 @@ const adminSlice = createSlice({
       state.infos.projectImageArray = action.payload;
     },
     setProjectBoxArray: (state, action: PayloadAction<ProjectBoxInfo[]>) => {
-      console.log(action.payload);
       state.infos.projectBoxArray = action.payload;
     },
     setAbilityBoxInfo: (state, action: PayloadAction<AbilityBoxInfo>) => {
@@ -59,7 +59,7 @@ const adminSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-     // Handle fileApi
+      // Handle fileApi
       .addCase(fileApi.pending, (state) => {
         state.response.loading = true;
         state.response.error = [];
@@ -73,9 +73,8 @@ const adminSlice = createSlice({
         }
       )
       .addCase(fileApi.rejected, (state, action) => {
-        const {status, process, error, statusCode} = action.payload;
+        const { status, process, error, statusCode } = action.payload as StateResponse;
         state.response.loading = false;
-        console.log(action)
         state.response.status = status;
         state.response.process = process;
         state.response.statusCode = statusCode;
@@ -89,21 +88,32 @@ const adminSlice = createSlice({
       .addCase(
         adminApi.fulfilled,
         (state, action: PayloadAction<RegularResponse>) => {
-          const result = action.payload.data;
-          const data = result[0];
+          const { status, process, data, statusCode } = action.payload as StateResponse;
+
           state.response.loading = false;
           state.response.data = data;
-          state.response.process = action.payload.process;
-          state.infos.adminInfo = data.info.file !== null ? {...data,
-            ...data.info,
-            file: JSON.parse(data.info.file)
-          } : data;
+          state.response.statusCode = statusCode;
+          state.response.status = status;
+          state.response.process = process;
+          const confirmedData = data as AdminInfo[];
+          
+          const parsedData = confirmedData.map(item => {
+            return {
+              ...item,
+              info: {
+                ...item.info,
+                file: JSON.parse(item.info.file as string),
+              },
+              fk: state.infos.adminInfo.id,
+            }
+          });
+          console.log(parsedData)
+          state.infos.adminInfo = parsedData[0];
         }
       )
       .addCase(adminApi.rejected, (state, action) => {
-        const {status, process, error, statusCode} = action.payload;
+        const { status, process, error, statusCode } = action.payload as StateResponse;
         state.response.loading = false;
-        console.log(action)
         state.response.status = status;
         state.response.process = process;
         state.response.statusCode = statusCode;
@@ -118,33 +128,37 @@ const adminSlice = createSlice({
       .addCase(
         skillApi.fulfilled,
         (state, action: PayloadAction<RegularResponse>) => {
-          const data = action.payload.data;
+          const { status, data, process, statusCode } = action.payload as StateResponse;
+
           state.response.loading = false;
           state.response.data = data;
-          state.response.process = action.payload.process;
+          state.response.statusCode = statusCode;
+          state.response.status = status;
+          state.response.process = process;
+
+          const confirmedData = data as SkillBoxInfo[];
 
           if (action.payload.process === "getOne") {
-            state.infos.skillBoxInfo = data[0];
+            state.infos.skillBoxInfo = confirmedData[0];
           }
-            
-          const parsedData = Array.isArray(action.payload.data) ? action.payload.data.map(item=>{
-              return {
-                ...item,
-                info: {
-                  ...item.info,
-                  file: JSON.parse(item.info.file),
-                },
-                fk: state.infos.adminInfo.id,
-              }
-            }) : null;
-            state.infos.skillBoxArray = [...parsedData];
-           
+
+          const parsedData = confirmedData.map(item => {
+            return {
+              ...item,
+              info: {
+                ...item.info,
+                file: JSON.parse(item.info.file as string),
+              },
+              fk: state.infos.adminInfo.id,
+            }
+          });
+          state.infos.skillBoxArray = [...parsedData];
+
         }
       )
       .addCase(skillApi.rejected, (state, action) => {
-        const {status, process, error, statusCode} = action.payload;
+        const { status, process, error, statusCode } = action.payload as StateResponse;
         state.response.loading = false;
-        console.log(action)
         state.response.status = status;
         state.response.process = process;
         state.response.statusCode = statusCode;
@@ -159,31 +173,35 @@ const adminSlice = createSlice({
       .addCase(
         projectApi.fulfilled,
         (state, action: PayloadAction<RegularResponse>) => {
-          const {data, process} = action.payload;
-          
+          const { status, process, statusCode, data } = action.payload as StateResponse;
+
           state.response.loading = false;
+          state.response.statusCode = statusCode;
+          state.response.status = status;
           state.response.data = data;
           state.response.process = process;
+
+          const confirmedData = data as ProjectBoxInfo[];
+
           if (action.payload.process === "getOne") {
-            state.infos.projectBoxInfo = data[0];
+            state.infos.projectBoxInfo = confirmedData[0];
           }
-          
-            const parsedData = action.payload.data.map(item=>{
-              return {
-                ...item,
-                info: {
-                  ...item.info,
-                  file: JSON.parse(item.info.file)
-                }
+          console.log(confirmedData)
+          const parsedData = confirmedData.length < 1 ? [] : confirmedData.map(item => {
+            return {
+              ...item,
+              info: {
+                ...item.info,
+                file: JSON.parse(item.info.file as string)
               }
-            })
-            state.infos.projectBoxArray = [...parsedData];
+            }
+          })
+          state.infos.projectBoxArray = confirmedData.length < 1 ? [] : [...parsedData];
         }
       )
       .addCase(projectApi.rejected, (state, action) => {
-        const {status, process, error, statusCode} = action.payload;
+        const { status, process, error, statusCode } = action.payload as StateResponse;
         state.response.loading = false;
-        console.log(action)
         state.response.status = status;
         state.response.process = process;
         state.response.statusCode = statusCode;
@@ -198,32 +216,35 @@ const adminSlice = createSlice({
       .addCase(
         projectImageApi.fulfilled,
         (state, action: PayloadAction<RegularResponse>) => {
-          const {data, process} = action.payload
+          const { status, process, statusCode, data } = action.payload as StateResponse;
           state.response.loading = false;
           state.response.data = data;
+          state.response.status = status;
+          state.response.statusCode = statusCode;
           state.response.process = process;
+
+          const confirmedData = data as ProjectBoxInfo[];
+
           if (process === "getOne") {
-            state.infos.projectImageInfo = data[0];
+            state.infos.projectImageInfo = confirmedData[0];
           }
-        
-            const parsedData = data.map(item=>{
-              return {
-                ...item,
-                info: {
-                  ...item.info,
-                  file: JSON.parse(item.info.file)
-                }
+
+          const parsedData = confirmedData.map(item => {
+            return {
+              ...item,
+              info: {
+                ...item.info,
+                file: JSON.parse(item.info.file as string)
               }
-            })
-            console.log(parsedData);
-            state.infos.projectImageArray = [...parsedData];
+            }
+          })
+          state.infos.projectImageArray = [...parsedData];
         }
-        
+
       )
       .addCase(projectImageApi.rejected, (state, action) => {
-        const {status, process, error, statusCode} = action.payload;
+        const { status, process, error, statusCode } = action.payload as StateResponse;
         state.response.loading = false;
-        console.log(action)
         state.response.status = status;
         state.response.process = process;
         state.response.statusCode = statusCode;
@@ -238,21 +259,26 @@ const adminSlice = createSlice({
       .addCase(
         abilityApi.fulfilled,
         (state, action: PayloadAction<RegularResponse>) => {
-          const {data, process} = action.payload
+          const { data, status, process, statusCode } = action.payload as StateResponse;
+
           state.response.loading = false;
           state.response.data = data;
+          state.response.status = status;
+          state.response.statusCode = statusCode;
           state.response.process = process;
+
+          const confirmedData = data as AbilityBoxInfo[];  
+
           if (process === "getOne") {
-            state.infos.projectImageInfo = data[0];
+            state.infos.abilityBoxInfo = confirmedData[0];
           }
-        
-          state.infos.abilityBoxArray = [...data];
+
+          state.infos.abilityBoxArray = [...confirmedData];
         }
       )
       .addCase(abilityApi.rejected, (state, action) => {
-        const {status, process, error, statusCode} = action.payload;
+        const { status, process, error, statusCode } = action.payload as StateResponse;
         state.response.loading = false;
-        console.log(action)
         state.response.status = status;
         state.response.process = process;
         state.response.statusCode = statusCode;

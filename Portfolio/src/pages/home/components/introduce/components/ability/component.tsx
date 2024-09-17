@@ -34,9 +34,9 @@ const Abilities = () => {
 
     }
     return (
-        <div className="d-block">
-            <h3 className="mb-4 bg-light text-dark mx-5 border rounded text-center">Abilities</h3>
-            <div className={`m-2 ${style.abilities}`}>
+        <div className="d-block w-100">
+            <h3 className="mb-4 bg-light text-dark border rounded text-center">Abilities</h3>
+            <div className={`${style.abilities}`}>
                 <AbilityBox showStatus={showStatus} />
             </div>
             <button onClick={handleClick} className={`${style.moreButton}`}>{buttonText}</button>

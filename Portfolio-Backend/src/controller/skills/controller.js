@@ -31,7 +31,7 @@ exports.addSkill = async (req, res) => {
     try {
         const { body } = await req;
         const file = req.file ? JSON.stringify(req.file && { filePath: req.file.path, fileName: req.file.filename }) : null;
-        const jsonData = req.file ? JSON.parse(body.data) : body.data; // Parse the JSON data from the body
+        const jsonData = body.data; // Parse the JSON data from the body
 
         const skillInfo = await htmlSanitizer(jsonData.info);
         const fk = await req.session.adminId;
@@ -53,7 +53,7 @@ exports.updateSkill = async (req, res) => {
     try {
         const { body } = await req;
         const file = req.file ? JSON.stringify(req.file && { filePath: req.file.path, fileName: req.file.filename }) : null;
-        const jsonData = req.file ? JSON.parse(body.data) : body.data; // Parse the JSON data from the body
+        const jsonData = body.data; // Parse the JSON data from the body
 
         const skillInfo = await htmlSanitizer(jsonData.info);
         const id = await jsonData.id;
