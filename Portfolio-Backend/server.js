@@ -6,7 +6,7 @@ const bp = require('body-parser')
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const {cors, helmet, auth} = require('@middlewares');
-
+const path = require('path');
 const {GlobalErrorHandler} = require('@handlers');
 const {routes} = require('@routes');
 
