@@ -31,6 +31,7 @@ middleware.use("/",
     resave: false,
     saveUninitialized: false,
     cookie: {
+      secure: true,
       path: "/",
       httpOnly: true,
     },
@@ -41,7 +42,6 @@ middleware.use("/",
 
 if (middleware.get('env') === 'production') {
   middleware.set('trust proxy', 1) // trust first proxy
-  sess.cookie.secure = true // serve secure cookies
 }
 
 
