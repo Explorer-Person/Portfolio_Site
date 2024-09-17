@@ -31,7 +31,21 @@ app.use(auth.authorize_check);
 app.use('/api/', routes);
 
 app.use(express.static(path.join(__dirname, 'client/dist')));
-app.get('*', (req, res) => {
+app.use('/portfolio', express.static(path.join(__dirname, 'client/dist')));
+app.use('/portfolio/projects', express.static(path.join(__dirname, 'client/dist')));
+app.use('/portfolio/admin/login', express.static(path.join(__dirname, 'client/dist')));
+app.use('/portfolio/admin/signup', express.static(path.join(__dirname, 'client/dist')));
+
+app.get('/portfolio/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
+});
+app.get('/portfolio/projects', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
+});
+app.get('/portfolio/admin/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
+});
+app.get('/portfolio/admin/signup', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
 });
 
