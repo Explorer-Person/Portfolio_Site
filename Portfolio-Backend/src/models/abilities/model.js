@@ -12,7 +12,7 @@ const abilitiesTable = async () => {
                 FOREIGN KEY (fk) REFERENCES admin(id)
             );
         `;
-        executeQuery(query);
+        await executeQuery(query);
         console.log('Tables created successfully!');
     } catch (err) {
         console.error('Error creating tables:', err);

@@ -17,7 +17,7 @@ const projectsTable = async () => {
                 FOREIGN KEY (fk) REFERENCES Skills(id)
             );
         `
-        executeQuery(query);
+        await executeQuery(query);
         console.log('Tables created successfully!');
     } catch (err) {
         console.error('Error creating tables:', err);

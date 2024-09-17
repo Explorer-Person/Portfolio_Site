@@ -2,9 +2,10 @@ const { executeQuery } = require("@db");
 const { projectImagesModel } = require("@models");
 
 const { dbResponseHandler } = require("@handlers");
+const { param } = require("express-validator");
 
 class ProjectImagesQuery {
-  constructor() {}
+  constructor() { }
 
   getAll = async () => {
     const query = "SELECT * FROM projectImages";

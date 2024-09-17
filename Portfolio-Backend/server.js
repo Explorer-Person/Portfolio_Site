@@ -16,13 +16,13 @@ const port = process.env.PORT || 3000;
 
 // Middlewares
 app.use(morgan('dev'));
+app.use(cors);
 app.use(helmet);
 app.use(express.json());
 
 // in latest body-parser use like below.
 app.use(bp.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.SESSION_SECRET));
-app.use(cors);
 
 app.use(auth.session);
 app.use(auth.authorize_check);
@@ -31,21 +31,8 @@ app.use(auth.authorize_check);
 app.use('/api/', routes);
 
 app.use(express.static(path.join(__dirname, 'client/dist')));
-app.use('/portfolio', express.static(path.join(__dirname, 'client/dist')));
-app.use('/portfolio/projects', express.static(path.join(__dirname, 'client/dist')));
-app.use('/portfolio/admin/login', express.static(path.join(__dirname, 'client/dist')));
-app.use('/portfolio/admin/signup', express.static(path.join(__dirname, 'client/dist')));
 
-app.get('/portfolio/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
-});
-app.get('/portfolio/projects', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
-});
-app.get('/portfolio/admin/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
-});
-app.get('/portfolio/admin/signup', (req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
 });
 

@@ -42,7 +42,7 @@
                     return dbResponseHandler(null, 201, 'addOne', query, params, true, adminModel());
                     // return this.getOne();
                   } else {
-                    return dbResponseHandler(`You Cannot Add More!!`, 406, 'addOne', query, params, false, null);
+                    return dbResponseHandler(`You Cannot Add More!!`, 406, 'addOne', null, null, false, null);
                 }
             } catch (err) {
                 return dbResponseHandler(`Error occurred: ${err.message}`, 500, 'addOne', query, null, false, null);

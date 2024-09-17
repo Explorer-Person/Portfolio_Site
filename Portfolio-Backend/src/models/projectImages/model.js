@@ -12,7 +12,7 @@ const projectImagesTable = async () => {
                 FOREIGN KEY (fk) REFERENCES projects(id)
             );
         `
-        executeQuery(query);
+        await executeQuery(query);
         console.log('Tables created successfully!');
     } catch (err) {
         console.error('Error creating tables:', err);
