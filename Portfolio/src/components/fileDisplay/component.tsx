@@ -19,7 +19,7 @@ const FileDisplay = ({ mediaInfo, handleMediaChange }: FileDisplayProps) => {
     // Trigger the API call to get the project images on mount
     useEffect(() => {
         dispatch(projectImageApi({
-            endpoint: `/api/projectImages/getAll/`,
+            endpoint: `/api/projectImages/getAll`,
             method: 'GET',
             data: { info: null, file: null }
         }));
