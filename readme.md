@@ -6,7 +6,7 @@
 - [Connections By Axios].(#Connections By Axios)
 
 ## Front-End Contents
-- [Axios For Server Connections].(#Axios For Server Connections)
+- [Axios For Server Connections].(#axios for server connections)
 - [Redux For Front Data Management].(#Redux For Front Data Management)
 - [Core Created By Vite].(#Core Created By Vite)
 - [Written By TypeScript].(#Written By TypeScript)
