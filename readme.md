@@ -1,16 +1,16 @@
 # Personal Customizable Portfolio Site
 
 ## Sites Have
-- [Front View By React].(#frontview)
-- [Back-End Service By Node.js].(#Back-End Service)
-- [Connections By Axios].(#Back-End Service)
+- [Front-End By React].(#Front-End By React)
+- [Back-End Service By Node.js].(#Back-End Service By Node.js)
+- [Connections By Axios].(#Connections By Axios)
 
 ## Front-End Contents
-- [Axios For Server Connections].(#frontview)
-- [Redux For Front Data Management].(#frontview)
-- [Core Created By Vite].(#frontview)
-- [Written By TypeScript].(#frontview)
-- [Datas are sending multiple way FormData or JSON].(#frontview)
+- [Axios For Server Connections].(#Axios For Server Connections)
+- [Redux For Front Data Management].(#Redux For Front Data Management)
+- [Core Created By Vite].(#Core Created By Vite)
+- [Written By TypeScript].(#Written By TypeScript)
+- [Datas are sending multiple way FormData or JSON].(#Datas are sending multiple way FormData or JSON)
 
  
 ## Table of Contents
