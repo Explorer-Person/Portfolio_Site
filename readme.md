@@ -1,50 +1,189 @@
+To create a more aesthetic and organized view for your Markdown (`.md`) file, consider the following improvements:
+
+### General Enhancements
+- **Improve readability** by using bullet points, ordered lists, and clear sections.
+- **Use consistent headings** for better hierarchy and structure.
+- **Include code blocks** for examples and explanations where relevant.
+- **Add styling elements** (bold, italic) to highlight important points.
+- **Avoid redundancy** in linking references and sections.
+
+Here is a detailed and more aesthetic version of your `.md` file:
+
+---
+
 # Personal Customizable Portfolio Site
 
-## **Sites Have**
-- **[Front-End By React](#front-end-by-react)**
-- **[Back-End Service By Node.js](#back-end-service-by-nodejs)**
-- **[Connections By Axios](#connections-by-axios)**
+## **Contents**
+1. [Front-End By React](#front-end-contents)
+2. [Back-End By Node.js](#back-end-contents)
+3. [Connections Using Axios](#connections-by-axios)
+
+---
 
 ## **Front-End Contents**
-- **[Axios For Server Connections](#axios-for-server-connections)**
-- **[Redux For Front Data Management](#redux-for-front-data-management)**
-- **[Core Created By Vite](#core-created-by-vite)**
-- **[Written By TypeScript](#written-by-typescript)**
-- **[Data is Sent in Multiple Formats: FormData or JSON](#data-is-sent-in-multiple-formats-formdata-or-json)**
 
+### **Key Features**
+- **Axios** for server connections and handling HTTP requests.
+- **Redux** for state management and data flow.
+- **Vite** as the build tool for fast development.
+- **TypeScript** for static typing and scalability.
+- **Data formats**: Handles both `FormData` and `JSON`.
 
- 
+---
+
 ## **Back-End Contents**
-### **Packages**
-- **[Express For Backend Logic](#axios-for-server-connections)**
-- **[Express-Session For Creating Auto Session When Auth Success](#axios-for-server-connections)**
-- **[Express-MySQL-Session For Integrate MySQL With Express-Session to Storing Session Datas in MySQL](#axios-for-server-connections)**
-- **[Express-Validator For Validate and Sanitize Incoming HTML Data](#axios-for-server-connections)**
-- **[ffmpeg For Formatting Videos](#axios-for-server-connections)**
-- **[Jimp For Image Formatting](#axios-for-server-connections)**
-- **[CORS For Restricting Api Access](#axios-for-server-connections)**
-- **[Helmet For Securing Response Headers](#axios-for-server-connections)**
-- **[Module-Alias for Escaping Absolute Path ../../ Issue](#axios-for-server-connections)**
-- **[Morgan For Logging Requests](#axios-for-server-connections)**
-- **[Multer For Accepting FormData and Parse Media Data](#axios-for-server-connections)**
-- **[uuid For Creating Unique ID](#axios-for-server-connections)**
-- **[Nodemon For Executing Server On Dev and it give resistance to server for any change and getting more easy development env](#axios-for-server-connections)**
-- **[Cookie-Parser Can Easily Interprets Incoming Cookies With Authorized Requests](#axios-for-server-connections)**
-- **[Bcryptjs For Encrypt Passwords Before Saving On DB](#axios-for-server-connections)**
+
+### **Key Packages**
+- **Express**: Backend framework for routing and middleware handling.
+- **Express-Session**: Automatically creates sessions on successful authentication.
+- **Express-MySQL-Session**: Integrates MySQL with sessions.
+- **Express-Validator**: Validates and sanitizes incoming data.
+- **FFmpeg**: For video processing.
+- **Jimp**: Handles image processing and formatting.
+- **CORS**: Controls API access based on origins.
+- **Helmet**: Secures HTTP headers.
+- **Module-Alias**: Resolves path issues in module imports.
+- **Morgan**: Logs requests for debugging and monitoring.
+- **Multer**: Handles file uploads via `FormData`.
+- **UUID**: Generates unique IDs.
+- **Nodemon**: Provides a live development environment with automatic server restarts.
+- **Cookie-Parser**: Parses and manages cookies.
+- **Bcryptjs**: Encrypts passwords before storing them in the database.
 
 ### **Architecture**
-
-- **[/controller receives requests from routers and manages responsing logic](#axios-for-server-connections)**
-- **[/routes receives requests forehand and transfer them according to assigned controller by endpoint](#axios-for-server-connections)**
-  ***[It receives four (data, process, status, statusCode) parameters and send them to client accordingly](#axios-for-server-connections)***
-  ***[Also one more func named with dbResponseHandler, it manages db query responses and transfer them to controller, its parameters (message, statusCode, process, query, params, model) . ](#axios-for-server-connections)***
-- **[/db includes core mysql db logics like create db if not exists, or check first is there any db? also there is func named executeQuery(query, parameters) for simplifying creating queries](#axios-for-server-connections)**
-- **[/middlewares includes /auth, /cors, /helmet, /resizer(jimp), /multer base logics ](#axios-for-server-connections)**
-- **[/utils includes /dataFormatter, /queryExecuter and /htmlSanitizer  ](#axios-for-server-connections)**
-- **[/validators includes validator logic for every kind of json datas that comin from client and have one validation result func for sending validator results ](#axios-for-server-connections)**
-- **[/queries have all query operations that communicating with mysql db and exploiting dbResponseHandler() which func using queryExecuter()  ](#axios-for-server-connections)**
-- **[/models includes whole formats of mysql tables  ](#axios-for-server-connections)**
-- **[/tests for testing and getting log of middlewares for debugging  ](#axios-for-server-connections)**
- *CONTINUE..
-- 
+- **Controller Layer**: Handles request logic and interaction with the database.
+  - `/admin`: CRUD operations for admin.
+  - `/skills`: CRUD operations for skills.
+  - `/projects`: CRUD operations for projects.
+  - `/projectImages`: Handles image processing related to projects.
+  - `/abilities`: CRUD operations for abilities.
   
+    Example of an API call:
+    ```javascript
+    exports.getAbility = async (req, res) => {
+        try {
+            const id = req.params.id;
+            const abilities = new abilitiesQuery();
+            const response = await abilities.getOne(id);
+
+            const formattedData = dataFormatter(response.data);
+            sendResponse(res, formattedData, response.process, response.status, response.statusCode);
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    };
+    ```
+
+- **Routing Layer**: Defines request routes and maps them to the corresponding controller functions.
+  - `/authorized`: Manages routes requiring authentication.
+  - `/unauthorized`: Handles public routes like login and signup.
+
+    Example:
+    ```javascript
+    router.post("/addOne", multer.fileUploader, projectsValidator, resizer, validationResult, addProject);
+    ```
+
+- **Database Layer**: Manages MySQL operations.
+  - **Core DB Logic**: 
+    - Create DB if it doesn't exist.
+    - Query execution via `executeQuery(query, parameters)`.
+
+- **Middleware Layer**: Implements various middlewares.
+  - **Authentication**: Manages session setup and authorization.
+  - **CORS**: Allows requests only from authorized origins.
+  - **Helmet**: Custom configuration to secure headers.
+  - **Resizer**: Resizes media files using `Jimp` (for images) or `FFmpeg` (for videos).
+  - **Multer**: Handles media uploads and validations.
+
+---
+
+## **Utils**
+- **Data Formatter**: Converts incoming database arrays into a structured format:
+  ```javascript
+  [
+    ...dbData
+  ]  
+  → 
+  [
+     id: id,
+     fk: fk,
+     info: {
+      ...dbData
+    }
+  ]
+  ```
+
+- **HTML Sanitizer**: Uses the `escape-html` package to protect against XSS.
+- **Query Executor**: Automates database query execution:
+  - `dbResponseHandler() → queryExecuter() → executeQuery()`
+
+---
+
+## **Validators**
+Handles incoming data validation from client inputs. Example of a validator:
+```javascript
+const validator = [
+  body('data.info.title')
+    .trim()
+    .replace(/<\/?[^>]+(>|$)/g, "")
+    .notEmpty().withMessage('Title is required')
+    .isString().withMessage('Title must be a string')
+    .isLength({ max: 100 }).withMessage('Title must be less than 100 characters')
+    .escape(),
+];
+```
+- `/abilities`: Validates abilities data.
+- `/admin`: Validates admin data.
+- `/projects`: Validates project data.
+
+---
+
+## **Front-End Architectures**
+
+- **/src**: Main directory for front-end.
+  - **/assets/images**: Stores images used across the web pages.
+  - **/components**: Reusable components.
+    - **/alertBox**: Displays aesthetic alerts.
+    - **/confBox**: A configurable box with inputs, connected to an input generator for dynamic forms.
+    - **/customButton**: General-purpose button for actions or requests.
+    - **/detailBox**: Displays detailed project information.
+    - **/fileDisplay**: Shows file info on the UI.
+    - **/loadingEffect**: Provides customizable loading animations.
+  - **/pages**: Divided into various sections.
+    - **/auth**: Manages login and signup pages.
+    - **/error**: Contains error pages (e.g., 404, unauthorized access).
+    - **/home**: Home page with introduction, abilities, and skills.
+    - **/project**: Displays project and project images.
+
+---
+
+### **Back-End Queries**
+
+- **/queries**: Contains query logic for each module.
+  - **/admin**: Admin-related queries.
+  - **/projects**: Project-related queries.
+  
+    Example:
+    ```javascript
+    getOne = async (id) => {
+        const query = "SELECT * FROM abilities WHERE id=?";
+        const param = [id];
+        return dbResponseHandler(null, 200, "getOne", query, param, abilitiesModel());
+    };
+    ```
+
+---
+
+### **Tests**
+- **/tests**: Includes tests for middlewares and other functionality for debugging purposes.
+
+---
+
+### **Additional Tools**
+- **Redux**: State management tool.
+- **React-Router-Dom**: For routing between pages.
+- **React-Bootstrap**: Provides UI components for styling.
+
+---
+
+This structure enhances the readability, flow, and clarity of your Markdown file. Additionally, it ensures that key information is easy to find and navigate through links, making your portfolio more accessible and professional.
