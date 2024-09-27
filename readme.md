@@ -335,3 +335,33 @@ Here's a refined version of the instructions with the required tools like Node.j
 --- 
 
 With these steps, your backend (Node.js, MySQL) and frontend (Vite, React) environments will be properly set up for development.
+
+
+
+images:
+
+![Ekran görüntüsü 2024-09-17 142018](https://github.com/user-attachments/assets/091f18d0-d101-4d2e-999b-9e614c4232b6)
+
+
+![Ekran görüntüsü 2024-09-17 142045](https://github.com/user-attachments/assets/09fdb7d0-8075-488b-afa2-ce520a10d71b)
+
+
+![Ekran görüntüsü 2024-09-17 142123](https://github.com/user-attachments/assets/8bae1c00-b1ff-4eaf-ab6f-45836dbc111f)
+
+
+![Ekran görüntüsü 2024-09-17 142313](https://github.com/user-attachments/assets/e96ddd10-4d3c-4061-9ce7-a28650f4efeb)
+
+
+![Ekran görüntüsü 2024-09-17 142331](https://github.com/user-attachments/assets/89d05355-5814-48b5-9dc2-8f3b81b9c4c5)
+
+
+![Ekran görüntüsü 2024-09-17 142339](https://github.com/user-attachments/assets/abbc6700-df73-4047-baaf-e3e70cd808b6)
+
+
+![Ekran görüntüsü 2024-09-17 142352](https://github.com/user-attachments/assets/22c1f465-b076-43c6-a300-10f755818d32)
+
+
+![Ekran görüntüsü 2024-09-17 142359](https://github.com/user-attachments/assets/4b1cbd51-b8f9-401d-a7c0-aa8929ee6fec)
+
+
+![Ekran görüntüsü 2024-09-17 142428](https://github.com/user-attachments/assets/b49b7f44-e902-4c3f-ad26-a673c530ca08)
